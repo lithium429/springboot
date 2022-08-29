@@ -1,5 +1,6 @@
 package com.li.frame.spring;
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,4 +11,8 @@ class ApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public void t1(){
+
+	}
 }
