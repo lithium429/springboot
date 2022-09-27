@@ -1,14 +1,15 @@
 package com.li.frame.spring;
 
-import com.li.frame.spring.timewheel.Timer;
-import com.li.frame.spring.timewheel.TimerTask;
+import com.li.frame.spring.model.User;
 import io.netty.util.HashedWheelTimer;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class CommonTest {
 
     @Test
@@ -34,11 +35,32 @@ public class CommonTest {
 //            System.out.println("delay 1500ms running");
 //        }));
 //        System.in.read();
-        int ticksPerWheel=512;
+        int ticksPerWheel = 512;
         int normalizedTicksPerWheel = 1;
         while (normalizedTicksPerWheel < ticksPerWheel) {
             normalizedTicksPerWheel <<= 1;
         }
         System.out.println(normalizedTicksPerWheel);
     }
+
+
+    @Test
+    public void tw2() throws IOException {
+
+        CompletableFuture<User> completableFuture = CompletableFuture.supplyAsync(() -> {
+            User user = new User();
+            user.setName("s");
+            return user;
+        }).thenApplyAsync(obj -> {
+            obj.setAge(12);
+            return obj;
+        }).whenCompleteAsync((obj, e) -> {
+            if (e != null) {
+                log.error(e.getMessage(), e);
+            }
+        });
+
+    }
+
+
 }
